@@ -1,0 +1,52 @@
+{
+  lib,
+  buildRosPackage,
+  #cmake,
+  #boost,
+  catkin,
+  std-msgs,
+  geometry-msgs,
+  nav-msgs,
+  roscpp,
+  rospy,
+  sensor-msgs,
+  tf,
+  livox-driver,
+  rosbag,
+  rostest,
+  pcl-ros,
+}: let
+  name = "livox_mapping";
+  version = "2.6.0";
+in
+  buildRosPackage {
+    pname = name;
+    inherit version;
+
+    src = fetchGit {
+      url = "https://github.com/Livox-SDK/livox_mapping.git";
+      sha256-hash = lib.fakeHash;
+    };
+
+    buildType = "catkin";
+    buildInputs = [
+      catkin
+      roscpp
+      rospy
+      std-msgs
+      rosbag
+      pcl-ros
+      geometry-msgs
+      nav-msgs
+      sensor-msgs
+      tf
+      livox-driver
+      rostest
+      rosbag
+    ];
+
+    meta = {
+      description = "Livox ROS Driver";
+      license = with lib.licenses; [bsdOriginal];
+    };
+  }
