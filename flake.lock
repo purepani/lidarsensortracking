@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1705309234,
-        "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
+        "lastModified": 1709126324,
+        "narHash": "sha256-q6EQdSeUZOG26WelxqkmR7kArjgWCdw5sfJVHPH/7j8=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "1ef2e671c3b0c19053962c07dbda38332dcebf26",
+        "rev": "d465f4819400de7c8d874d50b982301f28a84605",
         "type": "github"
       },
       "original": {
@@ -273,15 +273,16 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1707588628,
-        "narHash": "sha256-2suIXkfQrOtPeLanj9IE/LD8gLe8oBwOUXeG8pbJrEA=",
+        "lastModified": 1708913736,
+        "narHash": "sha256-s4qxyKnVBxtDQmzW9oMqmAs6fa2QLX3u1rE61Z6pLSk=",
         "owner": "lopsided98",
         "repo": "nix-ros-overlay",
-        "rev": "9f53d85d2a20447f67048a85e5e79e8753dce327",
+        "rev": "5f5fc569845b81487033d553c748e140e2ef4ca2",
         "type": "github"
       },
       "original": {
         "owner": "lopsided98",
+        "ref": "develop",
         "repo": "nix-ros-overlay",
         "type": "github"
       }
@@ -366,22 +367,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
-      "locked": {
-        "lastModified": 1707907779,
-        "narHash": "sha256-dtktfFJn+36yBkZ1mnQGdiDsqnzC9pXt/Ecpsui0hiY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c5e9528855e4e6feda2b16dec28de880ce774b93",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -389,7 +374,10 @@
         "livox-sdk": "livox-sdk_2",
         "livox_laser_simulation": "livox_laser_simulation",
         "nix-ros-overlay": "nix-ros-overlay_3",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": [
+          "nix-ros-overlay",
+          "nixpkgs"
+        ]
       }
     },
     "systems": {

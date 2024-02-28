@@ -2,12 +2,13 @@
   description = "ROS overlay for the Nix package manager";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     #nixpkgs-qtwebkit_fix.url = "github:orivej/nixpkgs/qtwebkit";
     flake-utils.url = "github:numtide/flake-utils";
     livox-sdk.url = "github:purepani/Livox-SDK";
     livox-ros-driver.url = "github:purepani/livox_ros_driver";
-    nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay";
+    nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/develop";
+    nixpkgs.follows = "nix-ros-overlay/nixpkgs";
     livox_laser_simulation = {
       url = "github:purepani/livox_laser_simulation";
     };
@@ -52,12 +53,13 @@
       overlays = [
         nix-ros-overlay.overlays.default
         livox-ros-driver.overlays.default
-        livox_laser_simulation.overlays.default
+        #livox_laser_simulation.overlays.default
         overlay_fix
       ];
 
       config.permittedInsecurePackages = [
         "qtwebkit-5.212.0-alpha4"
+        "freeimage-unstable-2021-11-01"
       ];
     };
   in {
@@ -74,10 +76,10 @@
           {
             ignoreCollisions = true;
             paths = [
-              #ros-base
-              desktop-full
+              ros-base
+              #desktop-full
               livox-driver
-              livox-laser-simulation
+              #livox-laser-simulation
               livox-mapping
             ];
           })
@@ -95,10 +97,19 @@
       ROS_HOSTNAME = "localhost";
       ROS_MASTER_URI = "http://localhost:11311";
     };
-    packages.x86_64-linux.default = pkgs.rosPackages.noetic.livox-mapping;
+    packages.x86_64-linux.livox-mapping = pkgs.rosPackages.noetic.livox-mapping;
+    packages.x86_64-linux.livox-driver = pkgs.rosPackages.noetic.livox-driver;
     nixConfig = {
-      extra-substituters = ["https://cache.nixos.org" "https://ros.cachix.org"];
-      extra-trusted-public-keys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="];
+      extra-substituters = [
+        "https://cache.nixos.org"
+        "https://ros.cachix.org"
+        "https://livoxpackages.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="
+        "livoxpackages.cachix.org-1:3AHIctixz1S97DqgeTp1rFcmb94dZ3nWAptPzijuoOg="
+      ];
     };
   };
 }
